@@ -1,0 +1,160 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 12.2 view script
+ * 
+ * @package    Application
+ */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.2</h1>
+<h3><code>InputFilter</code> Objekt mit Factory und Konfigurationsdaten erstellen</h3>
+<pre>
+&lt;?php
+use Zend\Debug\Debug;
+use Zend\InputFilter\Factory;
+
+$validData = array(
+    'pizza_name'     => ' Pizza Salami   ',
+    'pizza_price'    => 6.95,
+    'pizza_category' => '1',
+);
+
+$invalidData = array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+);
+
+$type = array(1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant');
+
+$factory = new Factory();
+
+$inputFilter = $factory->createInputFilter(array(
+    array(
+        'name' => 'pizza_name',
+        'validators' => array(
+            array(
+                'name'    => 'StringLength',
+                'options' => array('max' => 32),
+            ),
+            array(
+                'name'    => 'Alpha',
+                'options' => array('allowWhiteSpace' => true),
+            ),
+        ),
+        'filters' => array(array('name' => 'StringTrim')),
+    ),
+    array(
+        'name'       => 'pizza_price',
+        'validators' => array(array('name' => 'Float')),
+        'filters'    => array(array('name' => 'NumberFormat')),
+    ),
+));
+
+$inputFilter->add($factory->createInput(
+    array(
+        'name' => 'pizza_category',
+        'validators' => array(
+            array(
+                'name'    => 'InArray',
+                'options' => array('haystack' => array_keys($type)),
+            ),
+        ),
+    )
+));
+
+$inputFilter->setData($validData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+
+$inputFilter->setData($invalidData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+</pre>
+<h3>Ausgabe</h3>
+<?php 
+use Zend\Debug\Debug;
+use Zend\InputFilter\Factory;
+
+$validData = array(
+    'pizza_name'     => ' Pizza Salami   ',
+    'pizza_price'    => 6.95,
+    'pizza_category' => '1',
+);
+
+$invalidData = array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+);
+
+$type = array(1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant');
+
+$factory = new Factory();
+
+$inputFilter = $factory->createInputFilter(array(
+    array(
+        'name' => 'pizza_name',
+        'validators' => array(
+            array(
+                'name'    => 'StringLength',
+                'options' => array('max' => 32),
+            ),
+            array(
+                'name'    => 'Alpha',
+                'options' => array('allowWhiteSpace' => true),
+            ),
+        ),
+        'filters' => array(array('name' => 'StringTrim')),
+    ),
+    array(
+        'name'       => 'pizza_price',
+        'validators' => array(array('name' => 'Float')),
+        'filters'    => array(array('name' => 'NumberFormat')),
+    ),
+));
+
+$inputFilter->add($factory->createInput(
+    array(
+        'name' => 'pizza_category',
+        'validators' => array(
+            array(
+                'name'    => 'InArray',
+                'options' => array('haystack' => array_keys($type)),
+            ),
+        ),
+    )
+));
+
+$inputFilter->setData($validData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+
+$inputFilter->setData($invalidData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+?>
+</div>
+</div>

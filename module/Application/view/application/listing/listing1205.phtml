@@ -1,0 +1,94 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 12.5 view script
+ * 
+ * @package    Application
+ */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.5</h1>
+<h3><code>Zend\Form</code> Objekt programmatisch erstellen</h3>
+<pre>
+&lt;?php
+use Zend\Form\Form;
+use Zend\Form\Element\Select;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
+
+$nameElement = new Text('pizza_name');
+$nameElement->setLabel('Pizzaname');
+
+$priceElement = new Text('pizza_price');
+$priceElement->setLabel('Preis');
+
+$categoryElement = new Select('pizza_category');
+$categoryElement->setLabel('Kategorie');
+$categoryElement->setValueOptions(array(
+    1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant'
+));
+
+$submitElement = new Submit('save_pizza');
+$submitElement->setValue('Pizza speichern');
+
+$form = new Form('pizza');
+$form->add($nameElement);
+$form->add($priceElement);
+$form->add($categoryElement);
+$form->add($submitElement);
+</pre>
+<h3>Ausgabe</h3>
+<div class="well">
+<?php 
+use Zend\Form\Form;
+use Zend\Form\Element\Select;
+use Zend\Form\Element\Submit;
+use Zend\Form\Element\Text;
+
+$nameElement = new Text('pizza_name');
+$nameElement->setLabel('Pizzaname');
+
+$priceElement = new Text('pizza_price');
+$priceElement->setLabel('Preis');
+
+$categoryElement = new Select('pizza_category');
+$categoryElement->setLabel('Kategorie');
+$categoryElement->setValueOptions(array(
+    1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant'
+));
+
+$submitElement = new Submit('save_pizza');
+$submitElement->setValue('Pizza speichern');
+
+$form = new Form('pizza');
+$form->add($nameElement);
+$form->add($priceElement);
+$form->add($categoryElement);
+$form->add($submitElement);
+
+$form->prepare();
+
+$this->headStyle()->appendStyle('label { width: 200px; }');
+?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formRow($form->get('pizza_name')); ?>
+<?php echo $this->formRow($form->get('pizza_price')); ?>
+<?php echo $this->formRow($form->get('pizza_category')); ?>
+<?php echo $this->formRow($form->get('save_pizza')); ?>
+<?php echo $this->form()->closeTag(); ?>
+</div>
+</div>
+</div>

@@ -1,0 +1,40 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Pizza
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Index view script
+ * 
+ * @package    Pizza
+ */
+
+$this->plugin('currencyformat')->setCurrencyCode('EUR');
+?>
+<div class="hero-unit">
+<h1>Viele leckere Pizzabeläge</h1>
+</div>
+<div class="well">
+<ul>
+<?php foreach ($this->paginator->getCurrentItems() as $row) : ?>
+<li>
+<?php echo $row['name']?> (<?php echo $this->currencyFormat($row['costs']); ?>)
+</li>
+<?php endforeach; ?>
+</ul>
+<?php 
+echo $this->paginationControl(
+    $this->paginator, 'Sliding', 'pagination/control', 
+    array('route' => 'pizza-toppings')
+);
+?>
+</div>

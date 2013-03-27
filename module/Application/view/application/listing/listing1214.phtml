@@ -1,0 +1,51 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 12.14 view script
+ * 
+ * @package    Application
+ */
+
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.14</h1>
+<h3>Einsatz von <code>ExtendedPizzaForm</code></h3>
+<pre>
+&lt;?php
+use Pizza\Form\ExtendedPizzaForm;
+use Pizza\Form\PizzaDataFieldset;
+
+$form = new ExtendedPizzaForm(new PizzaDataFieldset());
+</pre>
+<h3>Ausgabe</h3>
+<div class="well">
+<?php 
+use Pizza\Form\ExtendedPizzaForm;
+use Pizza\Form\PizzaDataFieldset;
+
+$form = new ExtendedPizzaForm(new PizzaDataFieldset());
+$form->prepare();
+
+$this->headStyle()->appendStyle('label { width: 200px; }');
+?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formCollection($form->get('pizza_data')); ?>
+<?php echo $this->formCollection($form->get('pizza_toppings')); ?>
+<?php echo $this->formRow($form->get('save_pizza')); ?>
+<?php echo $this->form()->closeTag(); ?>
+</div>
+</div>
+</div>

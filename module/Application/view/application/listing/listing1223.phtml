@@ -1,0 +1,53 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 12.23 view script
+ * 
+ * @package    Application
+ */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.23</h1>
+<h3><code>PizzaHydrator</code> implementiert das <code>HydratorInterface</code></h3>
+<pre>
+&lt;?php
+namespace Pizza\Entity;
+
+use Zend\Stdlib\Hydrator\HydratorInterface;
+
+class PizzaHydrator implements HydratorInterface
+{
+    public function extract($object)
+    {
+        return array(
+            'pizza_name'     => $object->getName(),
+            'pizza_price'    => $object->getPrice(),
+            'pizza_category' => $object->getCategory(),
+        );
+    }
+
+    public function hydrate(array $data, $object)
+    {
+        $object->setName($data['pizza_name']);
+        $object->setPrice($data['pizza_price']);
+        $object->setCategory($data['pizza_category']);
+        
+        return $object;
+    }
+}
+</pre>
+</div>
+</div>

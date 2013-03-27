@@ -1,0 +1,128 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 12.1 view script
+ * 
+ * @package    Application
+ */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.1</h1>
+<h3><code>InputFilter</code> Objekt programmatisch erstellen</h3>
+<pre>
+&lt;?php
+use Zend\Debug\Debug;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Input;
+
+$validData = array(
+    'pizza_name'     => ' Pizza Salami   ',
+    'pizza_price'    => 6.95,
+    'pizza_category' => '1',
+);
+
+$invalidData = array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+);
+
+$type = array(1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant');
+
+$name = new Input('pizza_name');
+$name->getValidatorChain()->attachByName('StringLength', array('max' => 32));
+$name->getValidatorChain()->attachByName('Alpha', array('allowWhiteSpace' => true));
+$name->getFilterChain()->attachByName('StringTrim');
+
+$price = new Input('pizza_price');
+$price->getValidatorChain()->attachByName('Float');
+$price->getFilterChain()->attachByName('NumberFormat');
+
+$category = new Input('pizza_category');
+$category->getValidatorChain()->attachByName('InArray', array(
+    'haystack' => array_keys($type)
+));
+
+$inputFilter = new InputFilter();
+$inputFilter->add($name);
+$inputFilter->add($price);
+$inputFilter->add($category);
+
+$inputFilter->setData($validData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+
+$inputFilter->setData($invalidData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+</pre>
+<h3>Ausgabe</h3>
+<?php 
+use Zend\Debug\Debug;
+use Zend\InputFilter\InputFilter;
+use Zend\InputFilter\Input;
+
+$validData = array(
+    'pizza_name'     => ' Pizza Salami   ',
+    'pizza_price'    => 6.95,
+    'pizza_category' => '1',
+);
+
+$invalidData = array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+);
+
+$type = array(1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant');
+
+$name = new Input('pizza_name');
+$name->getValidatorChain()->attachByName('StringLength', array('max' => 32));
+$name->getValidatorChain()->attachByName('Alpha', array('allowWhiteSpace' => true));
+$name->getFilterChain()->attachByName('StringTrim');
+
+$price = new Input('pizza_price');
+$price->getValidatorChain()->attachByName('Float');
+$price->getFilterChain()->attachByName('NumberFormat');
+
+$category = new Input('pizza_category');
+$category->getValidatorChain()->attachByName('InArray', array(
+    'haystack' => array_keys($type)
+));
+
+$inputFilter = new InputFilter();
+$inputFilter->add($name);
+$inputFilter->add($price);
+$inputFilter->add($category);
+
+$inputFilter->setData($validData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+
+$inputFilter->setData($invalidData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
+?>
+</div>
+</div>

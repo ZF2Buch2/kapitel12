@@ -1,0 +1,61 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Listing 12.18 view script
+ * 
+ * @package    Application
+ */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.18</h1>
+<h3>Validierung von <code>AnotherPizzaForm</code> mit <code>PizzaInputFilter</code></h3>
+<pre>
+&lt;?php
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
+
+$form = new AnotherPizzaForm();
+$form->setInputFilter(new PizzaInputFilter());
+$form->setData(array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+));
+$form->isValid();
+
+Debug::dump($form->getMessages());
+Debug::dump($form->getData());
+</pre>
+<h3>Ausgabe</h3>
+<?php 
+use Zend\Debug\Debug;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
+
+$form = new AnotherPizzaForm();
+$form->setInputFilter(new PizzaInputFilter());
+$form->setData(array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+));
+$form->isValid();
+
+Debug::dump($form->getMessages());
+Debug::dump($form->getData());
+?>
+</div>
+</div>

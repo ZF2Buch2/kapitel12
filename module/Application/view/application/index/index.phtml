@@ -1,0 +1,151 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
+ * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
+ * ISBN 978-3-8273-2994-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ */
+
+/**
+ * Index view script
+ * 
+ * @package    Application
+ */
+?>
+<h1>Listings - Kapitel 12</h1>
+<table class="table table-bordered table-striped table-hover table-condensed">
+<thead>
+<tr>
+<th>Listing</th>
+<th>Beschreibung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/listing/listing1201">Listing 12.1</a></td>
+<td><code>InputFilter</code> Objekt programmatisch erstellen</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1202">Listing 12.2</a></td>
+<td><code>InputFilter</code> Objekt mit Factory und Konfigurationsdaten erstellen</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1203">Listing 12.3</a></td>
+<td>Eigene <code>PizzaInputFilter</code> Klasse mit Konfigurationsdaten</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1204">Listing 12.4</a></td>
+<td><code>PizzaInputFilter</code> einsetzen</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1205">Listing 12.5</a></td>
+<td><code>Zend\Form</code> Objekt programmatisch erstellen</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1206">Listing 12.6</a></td>
+<td>Formular mit <code>Zend\Form\Factory</code> konfigurieren</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1207">Listing 12.7</a></td>
+<td><code>Zend\Form</code> Objekt mit Fieldset programmatisch erstellen</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1208">Listing 12.8</a></td>
+<td>Formular mit Fieldsets durch <code>Zend\Form\Factory</code> generieren</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1209">Listing 12.9</a></td>
+<td><code>PizzaDataFieldset</code> stellt Fieldset für Pizzadaten bereit</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1210">Listing 12.10</a></td>
+<td><code>SimplePizzaForm</code> setzt <code>PizzaDataFieldset</code> ein</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1211">Listing 12.11</a></td>
+<td>Einsatz von <code>SimplePizzaForm</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1212">Listing 12.12</a></td>
+<td><code>ToppingsRowFieldset</code> stellt Fieldset für Pizzabeläge bereit</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1213">Listing 12.13</a></td>
+<td><code>ExtendedPizzaForm</code> setzt <code>Zend\Form\Element\Collection</code> ein</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1214">Listing 12.14</a></td>
+<td>Einsatz von <code>ExtendedPizzaForm</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1215">Listing 12.15</a></td>
+<td>Ausgabe von <code>SimplePizzaForm</code> mit <code>Form</code> und <code>FormRow</code> View-Helpern</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1216">Listing 12.16</a></td>
+<td>HTML-Code für die Ausgabe vom <code>SimplePizzaForm</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1217">Listing 12.17</a></td>
+<td><code>FormLabel</code>, <code>FormElement</code> und <code>FormElementError</code> View-Helper</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1218">Listing 12.18</a></td>
+<td>Validierung von <code>AnotherPizzaForm</code> mit <code>PizzaInputFilter</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1219">Listing 12.19</a></td>
+<td>Validierung mit Validierungsgruppe</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1220">Listing 12.20</a></td>
+<td><code>PizzaDataFieldset</code> implementiert <code>InputFilterProviderInterface</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1221">Listing 12.21</a></td>
+<td>Validierung von <code>SimplePizzaForm</code> mit Fieldsets</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1222">Listing 12.22</a></td>
+<td><code>PizzaEntity</code> Klasse</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1223">Listing 12.23</a></td>
+<td><code>PizzaHydrator</code> implementiert das <code>HydratorInterface</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1224">Listing 12.24</a></td>
+<td>Anbindung von <code>PizzaEntity</code> an <code>AnotherPizzaForm</code></td>
+</tr>
+<tr>
+<td><a href="/listing/listing1225">Listing 12.25</a></td>
+<td><code>composer.json</code> für Installation von Doctrine/Common</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1226">Listing 12.26</a></td>
+<td><code>PizzaEntity</code> mit Annotationen für Formulargenerierung</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1227">Listing 12.27</a></td>
+<td><code>AnnotationBuilder</code> generiert mit <code>PizzaEntity</code> das Formular</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1228">Listing 12.28</a></td>
+<td><code>UploadInputFilter</code> zum Filtern des Formulars</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1229">Listing 12.29</a></td>
+<td><code>UploadForm</code> für den Dateiupload</td>
+</tr>
+<tr>
+<td><a href="/listing/listing1230">Listing 12.30</a></td>
+<td>Einsatz der <code>UploadForm</code></td>
+</tr>
+</tbody>
+</table>
