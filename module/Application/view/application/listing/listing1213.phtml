@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,36 +21,25 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.13</h1>
-<h3><code>ExtendedPizzaForm</code> setzt <code>Zend\Form\Element\Collection</code> ein</h3>
+<h3><code>SimplePizzaForm</code> setzt <code>PizzaDataFieldset</code> ein</h3>
 <pre>
 &lt;?php
 namespace Pizza\Form;
 
-use Zend\Form\Element\Collection;
 use Zend\Form\Element\Submit;
 use Zend\Form\Fieldset;
 use Zend\Form\Form;
 
-class ExtendedPizzaForm extends Form
+class SimplePizzaForm extends Form
 {
     public function __construct(Fieldset $pizzaDataFieldset)
     {
-        parent::__construct('extended_pizza');
-        
-        $toppingsElement = new Collection('pizza_toppings');
-        $toppingsElement->setOptions(array(
-            'label' => 'Pizzabeläge',
-            'count' => 4,
-            'target_element' => array(
-                'type' => 'Pizza\Form\ToppingsRowFieldset'
-            )
-        ));
+        parent::__construct('simple_pizza');
         
         $submitElement = new Submit('save_pizza');
         $submitElement->setValue('Pizza speichern');
         
         $this->add($pizzaDataFieldset);
-        $this->add($toppingsElement);
         $this->add($submitElement);
     }
 }

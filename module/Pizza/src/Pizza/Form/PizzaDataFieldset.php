@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Pizza
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -20,7 +20,6 @@ namespace Pizza\Form;
 use Zend\Form\Element\Select;
 use Zend\Form\Element\Text;
 use Zend\Form\Fieldset;
-use Zend\InputFilter\InputFilterProviderInterface;
 
 /**
  * Pizza data fieldset
@@ -29,7 +28,7 @@ use Zend\InputFilter\InputFilterProviderInterface;
  * 
  * @package    Pizza
  */
-class PizzaDataFieldset extends Fieldset implements InputFilterProviderInterface
+class PizzaDataFieldset extends Fieldset
 {
     public function __construct()
     {
@@ -52,39 +51,5 @@ class PizzaDataFieldset extends Fieldset implements InputFilterProviderInterface
         $this->add($nameElement);
         $this->add($priceElement);
         $this->add($categoryElement);
-    }
-    
-    public function getInputFilterSpecification()
-    {
-        return array(
-            array(
-                'name' => 'pizza_name',
-                'validators' => array(
-                    array(
-                        'name'    => 'StringLength',
-                        'options' => array('max' => 32),
-                    ),
-                    array(
-                        'name'    => 'Alpha',
-                        'options' => array('allowWhiteSpace' => true),
-                    ),
-                ),
-                'filters' => array(array('name' => 'StringTrim')),
-            ),
-            array(
-                'name'       => 'pizza_price',
-                'validators' => array(array('name' => 'Float')),
-                'filters'    => array(array('name' => 'NumberFormat')),
-            ),
-            array(
-                'name' => 'pizza_category',
-                'validators' => array(
-                    array(
-                        'name'    => 'InArray',
-                        'options' => array('haystack' => array(1, 2, 3)),
-                    ),
-                ),
-            )
-        );
     }
 }

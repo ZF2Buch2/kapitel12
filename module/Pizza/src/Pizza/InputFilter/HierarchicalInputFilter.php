@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * ZF2 Buch Kapitel 12
  * 
@@ -6,36 +6,35 @@
  * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
  * ISBN 978-3-8362-2610-3
  * 
- * @package    Application
+ * @package    Pizza
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
  * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
- * Listing 12.6 view script
- * 
- * @package    Application
+ * namespace definition and usage
  */
-?>
-<div class="row">
-<div class="span9">
-<h1>Listing 12.6</h1>
-<h3>Übergeordneter Input-Filter verwendet <code>PizzaDataInputFilter</code></h3>
-<pre>
-&lt;?php
 namespace Pizza\InputFilter;
 
 use Zend\InputFilter\InputFilter;
 
+/**
+ * Hierarchical input filter
+ * 
+ * Handles the hierarchical input filtering for the pizza entity
+ * 
+ * @package    Pizza
+ */
 class HierarchicalInputFilter extends InputFilter
 {
+    /**
+     * Add inputs to input filter
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->add(new PizzaDataInputFilter(), 'pizza_data');
     }
 }
-
-</pre>
-</div>
-</div>

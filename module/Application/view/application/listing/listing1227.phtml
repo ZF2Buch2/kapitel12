@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,54 +21,33 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.27</h1>
-<h3><code>AnnotationBuilder</code> generiert mit <code>PizzaEntity</code> das Formular</h3>
+<h3><code>PizzaHydrator</code> implementiert das <code>HydratorInterface</code></h3>
 <pre>
 &lt;?php
-use Zend\Form\Annotation\AnnotationBuilder;
-use Pizza\Entity\PizzaEntity;
+namespace Pizza\Entity;
 
-$pizza   = new PizzaEntity();
-$builder = new AnnotationBuilder();
-$form    = $builder->createForm($pizza);
-$form->setData(array(
-    'name'     => 'Pizza 123          ',
-    'price'    => '€  6.95',
-    'category' => '2',
-));
-$form->isValid();
+use Zend\Stdlib\Hydrator\HydratorInterface;
 
-$this->headStyle()->appendStyle('label { width: 200px; }');
+class PizzaHydrator implements HydratorInterface
+{
+    public function extract($object)
+    {
+        return array(
+            'pizza_name'     => $object->getName(),
+            'pizza_price'    => $object->getPrice(),
+            'pizza_category' => $object->getCategory(),
+        );
+    }
 
-echo $this->form()->openTag($form);
-foreach ($form as $element) {
-    echo $this->formRow($element);
+    public function hydrate(array $data, $object)
+    {
+        $object->setName($data['pizza_name']);
+        $object->setPrice($data['pizza_price']);
+        $object->setCategory($data['pizza_category']);
+        
+        return $object;
+    }
 }
-echo $this->form()->closeTag();
 </pre>
-<h3>Ausgabe</h3>
-<div class="well">
-<?php 
-use Zend\Form\Annotation\AnnotationBuilder;
-use Pizza\Entity\PizzaEntity;
-
-$pizza   = new PizzaEntity();
-$builder = new AnnotationBuilder();
-$form    = $builder->createForm($pizza);
-$form->setData(array(
-    'name'     => 'Pizza 123          ',
-    'price'    => '€  6.95',
-    'category' => '2',
-));
-$form->isValid();
-
-$this->headStyle()->appendStyle('label { width: 200px; }');
-
-echo $this->form()->openTag($form);
-foreach ($form as $element) {
-    echo $this->formRow($element);
-}
-echo $this->form()->closeTag();
-?>
-</div>
 </div>
 </div>

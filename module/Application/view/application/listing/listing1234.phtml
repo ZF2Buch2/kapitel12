@@ -1,0 +1,149 @@
+<?php 
+/**
+ * ZF2 Buch Kapitel 12
+ * 
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
+ * 
+ * @package    Application
+ * @author     Ralf Eggert <r.eggert@travello.de>
+ * @copyright  Alle Listings sind urheberrechtlich geschützt!
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
+ */
+
+/**
+ * Listing 12.34 view script
+ * 
+ * @package    Application
+ */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.34</h1>
+<h3>Einsatz der <code>UploadForm</code></h3>
+<pre>
+&lt;?php
+use Pizza\Form\UploadForm;
+use Pizza\Service\UploadService;
+use Zend\Http\PhpEnvironment\Request;
+
+$request = new Request();
+
+$form = new UploadForm();
+$form-&gt;setAttribute('action', '/listing/listing1230');
+
+if ($request-&gt;isPost()) {
+    $data = array_merge_recursive(
+        $request-&gt;getPost()-&gt;toArray(),
+        $request-&gt;getFiles()-&gt;toArray()
+    );
+    
+    $form-&gt;setData($data);
+    
+    if ($form-&gt;isValid()) {
+        $class = 'alert-success';
+        $message = 'Datei wurde hochgeladen!';
+        
+        $fileData = $form-&gt;get('upload_file')-&gt;getValue();
+        $oldFile  = $fileData['tmp_name'];
+        $newFile  = LUIGI_ROOT . '/public/img/uploads/' 
+                  . $form-&gt;get('upload_name')-&gt;getValue() . '.jpg';
+        
+        move_uploaded_file($oldFile, $newFile);
+    } else {
+        $class = 'alert-error';
+        $message = 'Datei konnte nicht hochgeladen werden!';
+    }
+} else {
+    $message = null;
+    $class   = null;
+}
+?&gt;
+&lt;?php if ($message) : ?&gt;
+&lt;div class="alert &lt;?php echo $class; ?&gt;"&gt;&lt;?php echo $message; ?&gt;&lt;/div&gt;
+&lt;?php endif; ?&gt;
+
+&lt;?php $this-&gt;headStyle()-&gt;appendStyle('label { width: 200px; }'); ?&gt;
+&lt;div class="well"&gt;
+&lt;?php echo $this-&gt;form()-&gt;openTag($form);?&gt;
+&lt;?php foreach ($form as $element) : ?&gt;
+&lt;?php echo $this-&gt;formRow($element); ?&gt;
+&lt;?php endforeach; ?&gt;
+&lt;?php echo $this-&gt;form()-&gt;closeTag();?&gt;
+&lt;/div&gt;
+
+&lt;?php $uploadDir = scandir(LUIGI_ROOT . '/public/img/uploads'); ?&gt;
+&lt;?php if (count($uploadDir) &gt; 2): ?&gt;
+&lt;div class="well"&gt;&lt;div class="row-fluid"&gt;&lt;ul class="thumbnails"&gt;
+&lt;?php for ($n = 2; $n &lt; count($uploadDir); $n++): ?&gt;
+&lt;li class="span2"&gt;
+&lt;a class="thumbnail"&gt;&lt;img src="/img/uploads/&lt;?php echo $uploadDir[$n]?&gt;" /&gt;&lt;/a&gt;
+&lt;/li&gt;
+&lt;?php endfor; ?&gt;
+&lt;/ul&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;?php endif; ?&gt;
+</pre>
+<h3>Ausgabe</h3>
+<?php 
+use Pizza\Form\UploadForm;
+use Pizza\Service\UploadService;
+use Zend\Http\PhpEnvironment\Request;
+
+$request = new Request();
+
+$form = new UploadForm();
+$form->setAttribute('action', '/listing/listing1230');
+
+if ($request->isPost()) {
+    $data = array_merge_recursive(
+        $request->getPost()->toArray(),
+        $request->getFiles()->toArray()
+    );
+    
+    $form->setData($data);
+    
+    if ($form->isValid()) {
+        $class = 'alert-success';
+        $message = 'Datei wurde hochgeladen!';
+        
+        $fileData = $form->get('upload_file')->getValue();
+        $oldFile  = $fileData['tmp_name'];
+        $newFile  = LUIGI_ROOT . '/public/img/uploads/' 
+                  . $form->get('upload_name')->getValue() . '.jpg';
+        
+        move_uploaded_file($oldFile, $newFile);
+    } else {
+        $class = 'alert-error';
+        $message = 'Datei konnte nicht hochgeladen werden!';
+    }
+} else {
+    $message = null;
+    $class   = null;
+}
+?>
+<?php if ($message) : ?>
+<div class="alert <?php echo $class; ?>"><?php echo $message; ?></div>
+<?php endif; ?>
+
+<?php $this->headStyle()->appendStyle('label {width:200px;}'); ?>
+<div class="well">
+<?php echo $this->form()->openTag($form);?>
+<?php foreach ($form as $element) : ?>
+<?php echo $this->formRow($element); ?>
+<?php endforeach; ?>
+<?php echo $this->form()->closeTag();?>
+</div>
+
+<?php $uploadDir = scandir(LUIGI_ROOT . '/public/img/uploads');?>
+<?php if (count($uploadDir) > 2): ?>
+<div class="well"><div class="row-fluid"><ul class="thumbnails">
+<?php for ($n = 2; $n < count($uploadDir); $n++): ?>
+<li class="span2">
+<a class="thumbnail"><img src="/img/uploads/<?php echo $uploadDir[$n]?>" /></a>
+</li>
+<?php endfor; ?>
+</ul></div></div>
+<?php endif; ?>
+</div>
+</div>

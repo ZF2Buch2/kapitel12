@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * ZF2 Buch Kapitel 12
  * 
@@ -6,15 +6,24 @@
  * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
  * ISBN 978-3-8362-2610-3
  * 
- * @package    Pizza
+ * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
  * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
- * namespace definition and usage
+ * Listing 12.33 view script
+ * 
+ * @package    Application
  */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.33</h1>
+<h3><code>UploadForm</code> für den Dateiupload</h3>
+<pre>
+&lt;?php
 namespace Pizza\Form;
 
 use Zend\Form\Element\File;
@@ -23,13 +32,6 @@ use Zend\Form\Element\Text;
 use Zend\Form\Form;
 use Pizza\InputFilter\UploadInputFilter;
 
-/**
- * Upload form
- * 
- * Handles the upload form
- * 
- * @package    Pizza
- */
 class UploadForm extends Form
 {
     public function __construct()
@@ -54,3 +56,6 @@ class UploadForm extends Form
         $this->add($submitElement);
     }
 }
+</pre>
+</div>
+</div>

@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,20 +21,18 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.21</h1>
-<h3>Validierung von <code>SimplePizzaForm</code> mit Fieldsets</h3>
+<h3>Validierung von <code>AnotherPizzaForm</code> mit <code>PizzaInputFilter</code></h3>
 <pre>
 &lt;?php
-use Zend\Debug\Debug;
-use Pizza\Form\SimplePizzaForm;
-use Pizza\Form\PizzaDataFieldset;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
 
-$form = new SimplePizzaForm(new PizzaDataFieldset());
+$form = new AnotherPizzaForm();
+$form->setInputFilter(new PizzaInputFilter());
 $form->setData(array(
-    'pizza_data' => array(
-        'pizza_name'     => 'Pizza 123          ',
-        'pizza_price'    => '€  6.95',
-        'pizza_category' => '1a',
-    ),
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
 ));
 $form->isValid();
 
@@ -44,16 +42,15 @@ Debug::dump($form->getData());
 <h3>Ausgabe</h3>
 <?php 
 use Zend\Debug\Debug;
-use Pizza\Form\SimplePizzaForm;
-use Pizza\Form\PizzaDataFieldset;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
 
-$form = new SimplePizzaForm(new PizzaDataFieldset());
+$form = new AnotherPizzaForm();
+$form->setInputFilter(new PizzaInputFilter());
 $form->setData(array(
-    'pizza_data' => array(
-        'pizza_name'     => 'Pizza 123          ',
-        'pizza_price'    => '€  6.95',
-        'pizza_category' => '1a',
-    ),
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
 ));
 $form->isValid();
 

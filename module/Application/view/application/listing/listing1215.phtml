@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,42 +21,40 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.15</h1>
-<h3>Ausgabe von <code>SimplePizzaForm</code> mit <code>Form</code> und <code>FormRow</code> View-Helpern</h3>
+<h3><code>ToppingsRowFieldset</code> stellt Fieldset für Pizzabeläge bereit</h3>
 <pre>
 &lt;?php
-use Pizza\Form\SimplePizzaForm;
-use Pizza\Form\PizzaDataFieldset;
+namespace Pizza\Form;
 
-$form = new SimplePizzaForm(new PizzaDataFieldset());
-$form->prepare();
+use Zend\Form\Element\Select;
+use Zend\Form\Fieldset;
 
-$this->headStyle()->appendStyle('label { width: 200px; }');
+class ToppingsRowFieldset extends Fieldset
+{
+    public function __construct()
+    {
+        parent::__construct('toppings_row');
+        
+        $toppingElement = new Select('pizza_topping_id');
+        $toppingElement->setLabel('Pizzabelag');
+        $toppingElement->setValueOptions(array(
+            1 => 'Tomatenpampe',  2 => 'Käse',      3 => 'Salami',
+            4 => 'Schinken',      5 => 'Ananas',    6 => 'Champignons',
+            7 => 'Melone',        8 => 'Zwiebeln',  9 => 'Thunfisch',
+            10 => 'Spinat',      11 => 'Peperoni', 12 => 'Feta',
+            13 => 'Hackfleisch', 14 => 'Mais',
+        ));
 
-echo $this->form()->openTag($form);
-foreach ($form->get('pizza_data') as $element) {
-    echo $this->formRow($element);
+        $portionElement = new Select('pizza_topping_portion');
+        $portionElement->setLabel('Portion');
+        $portionElement->setValueOptions(array(
+            0 => '0', 1 => '1', 2 => '2', 3 => '3',
+        ));
+
+        $this->add($toppingElement);
+        $this->add($portionElement);
+    }
 }
-echo $this->formRow($form->get('save_pizza'));
-echo $this->form()->closeTag();
 </pre>
-<h3>Ausgabe</h3>
-<div class="well">
-<?php 
-use Pizza\Form\SimplePizzaForm;
-use Pizza\Form\PizzaDataFieldset;
-
-$form = new SimplePizzaForm(new PizzaDataFieldset());
-$form->prepare();
-
-$this->headStyle()->appendStyle('label { width: 200px; }');
-
-echo $this->form()->openTag($form);
-foreach ($form->get('pizza_data') as $element) {
-    echo $this->formRow($element);
-}
-echo $this->formRow($form->get('save_pizza'));
-echo $this->form()->closeTag();
-?>
-</div>
 </div>
 </div>

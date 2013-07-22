@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * ZF2 Buch Kapitel 12
  * 
@@ -6,28 +6,26 @@
  * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
  * ISBN 978-3-8362-2610-3
  * 
- * @package    Application
+ * @package    Pizza
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
  * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
- * Listing 12.23 view script
- * 
- * @package    Application
+ * namespace definition and usage
  */
-?>
-<div class="row">
-<div class="span9">
-<h1>Listing 12.23</h1>
-<h3>Erweitertes Fieldset implementiert <code>InputFilterProviderInterface</code></h3>
-<pre>
-&lt;?php
 namespace Pizza\Form;
 
 use Zend\InputFilter\InputFilterProviderInterface;
 
+/**
+ * Interfaced Pizza data fieldset
+ * 
+ * Extends the pizza data fieldset to use interface for input filter
+ * 
+ * @package    Pizza
+ */
 class InterfacedPizzaDataFieldset extends PizzaDataFieldset 
     implements InputFilterProviderInterface
 {
@@ -65,6 +63,3 @@ class InterfacedPizzaDataFieldset extends PizzaDataFieldset
         );
     }
 }
-</pre>
-</div>
-</div>

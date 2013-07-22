@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * ZF2 Buch Kapitel 12
  * 
@@ -6,35 +6,32 @@
  * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
  * ISBN 978-3-8362-2610-3
  * 
- * @package    Pizza
+ * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
  * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
- * namespace definition and usage
+ * Listing 12.32 view script
+ * 
+ * @package    Application
  */
+?>
+<div class="row">
+<div class="span9">
+<h1>Listing 12.32</h1>
+<h3><code>UploadInputFilter</code> zum Filtern des Formulars</h3>
+<pre>
+&lt;?php
 namespace Pizza\InputFilter;
 
 use Zend\InputFilter\FileInput;
 use Zend\InputFilter\Input;
 use Zend\InputFilter\InputFilter;
 
-/**
- * Upload input filter
- * 
- * Handles the input filtering for the file upload
- * 
- * @package    Pizza
- */
 class UploadInputFilter extends InputFilter
 {
-    /**
-     * Add inputs to input filter
-     *
-     * @return void
-     */
     public function __construct()
     {
         $name = new Input('upload_name');
@@ -61,3 +58,6 @@ class UploadInputFilter extends InputFilter
         $this->add($file);
     }
 }
+</pre>
+</div>
+</div>

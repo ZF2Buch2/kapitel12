@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,38 +21,38 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.12</h1>
-<h3><code>ToppingsRowFieldset</code> stellt Fieldset für Pizzabeläge bereit</h3>
+<h3><code>PizzaDataFieldset</code> stellt Fieldset für Pizzadaten bereit</h3>
 <pre>
 &lt;?php
 namespace Pizza\Form;
 
 use Zend\Form\Element\Select;
+use Zend\Form\Element\Text;
 use Zend\Form\Fieldset;
 
-class ToppingsRowFieldset extends Fieldset
+class PizzaDataFieldset extends Fieldset
 {
     public function __construct()
     {
-        parent::__construct('toppings_row');
+        parent::__construct('pizza_data');
         
-        $toppingElement = new Select('pizza_topping_id');
-        $toppingElement->setLabel('Pizzabelag');
-        $toppingElement->setValueOptions(array(
-            1 => 'Tomatenpampe',  2 => 'Käse',      3 => 'Salami',
-            4 => 'Schinken',      5 => 'Ananas',    6 => 'Champignons',
-            7 => 'Melone',        8 => 'Zwiebeln',  9 => 'Thunfisch',
-            10 => 'Spinat',      11 => 'Peperoni', 12 => 'Feta',
-            13 => 'Hackfleisch', 14 => 'Mais',
+        $this->setLabel('Pizzadaten');
+        
+        $nameElement = new Text('pizza_name');
+        $nameElement->setLabel('Pizzaname');
+        
+        $priceElement = new Text('pizza_price');
+        $priceElement->setLabel('Preis');
+        
+        $categoryElement = new Select('pizza_category');
+        $categoryElement->setLabel('Kategorie');
+        $categoryElement->setValueOptions(array(
+            1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant'
         ));
-
-        $portionElement = new Select('pizza_topping_portion');
-        $portionElement->setLabel('Portion');
-        $portionElement->setValueOptions(array(
-            0 => '0', 1 => '1', 2 => '2', 3 => '3',
-        ));
-
-        $this->add($toppingElement);
-        $this->add($portionElement);
+        
+        $this->add($nameElement);
+        $this->add($priceElement);
+        $this->add($categoryElement);
     }
 }
 </pre>

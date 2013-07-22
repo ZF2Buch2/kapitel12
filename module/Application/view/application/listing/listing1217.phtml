@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -17,65 +17,35 @@
  * 
  * @package    Application
  */
+
 ?>
 <div class="row">
 <div class="span9">
 <h1>Listing 12.17</h1>
-<h3><code>FormLabel</code>, <code>FormElement</code> und <code>FormElementError</code> View-Helper</h3>
+<h3>Einsatz von <code>ExtendedPizzaForm</code></h3>
 <pre>
 &lt;?php
-use Pizza\Form\SimplePizzaForm;
+use Pizza\Form\ExtendedPizzaForm;
 use Pizza\Form\PizzaDataFieldset;
 
-$form = new SimplePizzaForm(new PizzaDataFieldset());
-$form-&gt;setAttribute('class', 'form-horizontal');
-$form-&gt;prepare();
-?&gt;
-&lt;?php echo $this-&gt;form()-&gt;openTag($form);?&gt;
-&lt;?php foreach ($form-&gt;get('pizza_data') as $element) : ?&gt;
-&lt;?php $element-&gt;setLabelAttributes(array('class' =&gt; 'control-label')); ?&gt;
-&lt;?php $element-&gt;setAttributes(array('class' =&gt; 'span6')); ?&gt;
-&lt;div class="control-group"&gt;
-&lt;?php echo $this-&gt;formLabel($element); ?&gt;
-&lt;div class="controls"&gt;
-&lt;?php echo $this-&gt;formElement($element); ?&gt;
-&lt;?php echo $this-&gt;formElementErrors($element); ?&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;?php endforeach; ?&gt;
-&lt;div class="form-actions"&gt;
-&lt;?php $form-&gt;get('save_pizza')-&gt;setAttribute('class', 'btn'); ?&gt;
-&lt;?php echo $this-&gt;formElement($form-&gt;get('save_pizza')); ?&gt;
-&lt;/div&gt;
-&lt;?php echo $this-&gt;form()-&gt;closeTag();?&gt;
+$form = new ExtendedPizzaForm(new PizzaDataFieldset());
 </pre>
 <h3>Ausgabe</h3>
 <div class="well">
 <?php 
-use Pizza\Form\SimplePizzaForm;
+use Pizza\Form\ExtendedPizzaForm;
 use Pizza\Form\PizzaDataFieldset;
 
-$form = new SimplePizzaForm(new PizzaDataFieldset());
-$form->setAttribute('class', 'form-horizontal');
+$form = new ExtendedPizzaForm(new PizzaDataFieldset());
 $form->prepare();
+
+$this->headStyle()->appendStyle('label { width: 200px; }');
 ?>
-<?php echo $this->form()->openTag($form);?>
-<?php foreach ($form->get('pizza_data') as $element) : ?>
-<?php $element->setLabelAttributes(array('class' => 'control-label')); ?>
-<?php $element->setAttributes(array('class' => 'span6')); ?>
-<div class="control-group">
-<?php echo $this->formLabel($element); ?>
-<div class="controls">
-<?php echo $this->formElement($element); ?>
-<?php echo $this->formElementErrors($element); ?>
-</div>
-</div>
-<?php endforeach; ?>
-<div class="form-actions">
-<?php $form->get('save_pizza')->setAttribute('class', 'btn'); ?>
-<?php echo $this->formElement($form->get('save_pizza')); ?>
-</div>
-<?php echo $this->form()->closeTag();?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formCollection($form->get('pizza_data')); ?>
+<?php echo $this->formCollection($form->get('pizza_toppings')); ?>
+<?php echo $this->formRow($form->get('save_pizza')); ?>
+<?php echo $this->form()->closeTag(); ?>
 </div>
 </div>
 </div>

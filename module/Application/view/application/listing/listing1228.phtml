@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,43 +21,48 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.28</h1>
-<h3><code>UploadInputFilter</code> zum Filtern des Formulars</h3>
+<h3>Anbindung von <code>PizzaEntity</code> an <code>AnotherPizzaForm</code></h3>
 <pre>
 &lt;?php
-namespace Pizza\InputFilter;
+use Zend\Debug\Debug;
+use Pizza\Entity\PizzaEntity;
+use Pizza\Entity\PizzaHydrator;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
 
-use Zend\InputFilter\FileInput;
-use Zend\InputFilter\Input;
-use Zend\InputFilter\InputFilter;
+$form = new AnotherPizzaForm;
+$form->setHydrator(new PizzaHydrator());
+$form->bind(new PizzaEntity());
+$form->setInputFilter(new PizzaInputFilter());
+$form->setData(array(
+    'pizza_name'     => ' Pizza Gemüsegarten ',
+    'pizza_price'    => '7.95',
+    'pizza_category' => '2',
+));
+$form->isValid();
 
-class UploadInputFilter extends InputFilter
-{
-    public function __construct()
-    {
-        $name = new Input('upload_name');
-        $name->getValidatorChain()->attachByName(
-            'StringLength', 
-            array('max' => 32)
-        );
-        $name->getFilterChain()->attachByName('StringTrim');
-        $name->getFilterChain()->attachByName('Alpha');
-        $name->getFilterChain()->attachByName('StringToLower');
-        
-        $file = new FileInput('upload_file');
-        $file->setRequired(true);
-        $file->getValidatorChain()->attachByName(
-            'fileimagesize',
-            array('maxWidth' => 150, 'maxHeight' => 150)
-        );
-        $file->getValidatorChain()->attachByName(
-            'filemimetype',
-            array('mimeType' => 'image/jpeg')
-        );
-        
-        $this->add($name);
-        $this->add($file);
-    }
-}
+Debug::dump($form->getData());
 </pre>
+<h3>Ausgabe</h3>
+<?php 
+use Zend\Debug\Debug;
+use Pizza\Entity\PizzaEntity;
+use Pizza\Entity\PizzaHydrator;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
+
+$form = new AnotherPizzaForm;
+$form->setHydrator(new PizzaHydrator());
+$form->bind(new PizzaEntity());
+$form->setInputFilter(new PizzaInputFilter());
+$form->setData(array(
+    'pizza_name'     => ' Pizza Gemüsegarten ',
+    'pizza_price'    => '7.95',
+    'pizza_category' => '2',
+));
+$form->isValid();
+
+Debug::dump($form->getData());
+?>
 </div>
 </div>

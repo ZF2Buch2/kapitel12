@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch 'Zend Framework 2 - Das Praxisbuch'
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -18,84 +18,79 @@
  * @package    Application
  */
 ?>
-<div class="row">
-<div class="span9">
+<div class='row'>
+<div class='span9'>
 <h1>Listing 12.7</h1>
-<h3><code>Zend\Form</code> Objekt mit Fieldset programmatisch erstellen</h3>
+<h3>Einsatz des <code>HierarchicalInputFilter</code></h3>
 <pre>
 &lt;?php
-use Zend\Form\Form;
-use Zend\Form\Fieldset;
-use Zend\Form\Element\Select;
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Text;
+use Zend\Debug\Debug;
+use Pizza\InputFilter\HierarchicalInputFilter;
 
-$nameElement = new Text('pizza_name');
-$nameElement->setLabel('Pizzaname');
+$validData = array(
+    'pizza_data'         => array(
+        'pizza_name'     => ' Pizza Salami   ',
+        'pizza_price'    => 6.95,
+        'pizza_category' => '1',
+    ),
+);
 
-$priceElement = new Text('pizza_price');
-$priceElement->setLabel('Preis');
+$invalidData = array(
+    'pizza_data'         => array(
+        'pizza_name'     => 'Pizza 123          ',
+        'pizza_price'    => '€  6.95',
+        'pizza_category' => '1a',
+    ),
+);
 
-$categoryElement = new Select('pizza_category');
-$categoryElement->setLabel('Kategorie');
-$categoryElement->setValueOptions(array(
-    1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant'
-));
+$inputFilter = new HierarchicalInputFilter();
 
-$submitElement = new Submit('save_pizza');
-$submitElement->setValue('Pizza speichern');
+$inputFilter->setData($validData);
 
-$dataFieldset = new Fieldset('data');
-$dataFieldset->setLabel('Pizzadaten');
-$dataFieldset->add($nameElement);
-$dataFieldset->add($priceElement);
-$dataFieldset->add($categoryElement);
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
 
-$form = new Form('pizza');
-$form->add($dataFieldset);
-$form->add($submitElement);
+$inputFilter->setData($invalidData);
+
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
 </pre>
 <h3>Ausgabe</h3>
-<div class="well">
 <?php 
-use Zend\Form\Form;
-use Zend\Form\Fieldset;
-use Zend\Form\Element\Select;
-use Zend\Form\Element\Submit;
-use Zend\Form\Element\Text;
+use Zend\Debug\Debug;
+use Pizza\InputFilter\HierarchicalInputFilter;
 
-$nameElement = new Text('pizza_name');
-$nameElement->setLabel('Pizzaname');
+$validData = array(
+    'pizza_data'         => array(
+        'pizza_name'     => ' Pizza Salami   ',
+        'pizza_price'    => 6.95,
+        'pizza_category' => '1',
+    ),
+);
 
-$priceElement = new Text('pizza_price');
-$priceElement->setLabel('Preis');
+$invalidData = array(
+    'pizza_data'         => array(
+        'pizza_name'     => 'Pizza 123          ',
+        'pizza_price'    => '€  6.95',
+        'pizza_category' => '1a',
+    ),
+);
 
-$categoryElement = new Select('pizza_category');
-$categoryElement->setLabel('Kategorie');
-$categoryElement->setValueOptions(array(
-    1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant'
-));
+$inputFilter = new HierarchicalInputFilter();
 
-$submitElement = new Submit('save_pizza');
-$submitElement->setValue('Pizza speichern');
+$inputFilter->setData($validData);
 
-$dataFieldset = new Fieldset('data');
-$dataFieldset->setLabel('Pizzadaten');
-$dataFieldset->add($nameElement);
-$dataFieldset->add($priceElement);
-$dataFieldset->add($categoryElement);
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
 
-$form = new Form('pizza');
-$form->add($dataFieldset);
-$form->add($submitElement);
-$form->prepare();
+$inputFilter->setData($invalidData);
 
-$this->headStyle()->appendStyle('label { width: 200px; }');
+Debug::dump($inputFilter->isValid());
+Debug::dump($inputFilter->getValues());
+Debug::dump($inputFilter->getMessages());
 ?>
-<?php echo $this->form()->openTag($form); ?>
-<?php echo $this->formCollection($form->get('data')); ?>
-<?php echo $this->formRow($form->get('save_pizza')); ?>
-<?php echo $this->form()->closeTag(); ?>
-</div>
 </div>
 </div>

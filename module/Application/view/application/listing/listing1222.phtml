@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,47 +21,44 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.22</h1>
-<h3><code>PizzaEntity</code> Klasse</h3>
+<h3>Validierung mit Validierungsgruppe</h3>
 <pre>
 &lt;?php
-namespace Pizza\Entity;
+use Zend\Debug\Debug;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
 
-class PizzaEntity
-{
-    protected $name;
-    protected $price;
-    protected $category;
-    
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-    
-    public function getName()
-    {
-        return $this->name;
-    }
-    
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-    
-    public function getPrice()
-    {
-        return round($this->price, 2);
-    }
-    
-    public function setCategory($category)
-    {
-        $this->category = $category;
-    }
-    
-    public function getCategory()
-    {
-        return $this->category;
-    }
-}
+$form = new AnotherPizzaForm();
+$form->setInputFilter(new PizzaInputFilter());
+$form->setValidationGroup(array('pizza_name', 'pizza_price'));
+$form->setData(array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+));
+$form->isValid();
+
+Debug::dump($form->getMessages());
+Debug::dump($form->getData());
 </pre>
+<h3>Ausgabe</h3>
+<?php 
+use Zend\Debug\Debug;
+use Pizza\Form\AnotherPizzaForm;
+use Pizza\InputFilter\PizzaInputFilter;
+
+$form = new AnotherPizzaForm();
+$form->setInputFilter(new PizzaInputFilter());
+$form->setValidationGroup(array('pizza_name', 'pizza_price'));
+$form->setData(array(
+    'pizza_name'     => 'Pizza 123          ',
+    'pizza_price'    => '€  6.95',
+    'pizza_category' => '1a',
+));
+$form->isValid();
+
+Debug::dump($form->getMessages());
+Debug::dump($form->getData());
+?>
 </div>
 </div>

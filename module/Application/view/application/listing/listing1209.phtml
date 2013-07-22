@@ -2,14 +2,14 @@
 /**
  * ZF2 Buch Kapitel 12
  * 
- * Das Buch "Zend Framework 2 - Von den Grundlagen bis zur fertigen Anwendung"
- * von Ralf Eggert ist im Addison-Wesley Verlag erschienen. 
- * ISBN 978-3-8273-2994-3
+ * Das Buch "Zend Framework 2 - Das Praxisbuch"
+ * von Ralf Eggert ist im Galileo-Computing Verlag erschienen. 
+ * ISBN 978-3-8362-2610-3
  * 
  * @package    Application
  * @author     Ralf Eggert <r.eggert@travello.de>
  * @copyright  Alle Listings sind urheberrechtlich geschützt!
- * @link       http://www.zendframeworkbuch.de/ und http://www.awl.de/2994
+ * @link       http://www.zendframeworkbuch.de/ und http://www.galileocomputing.de/3460
  */
 
 /**
@@ -21,40 +21,108 @@
 <div class="row">
 <div class="span9">
 <h1>Listing 12.9</h1>
-<h3><code>PizzaDataFieldset</code> stellt Fieldset für Pizzadaten bereit</h3>
+<h3>Formular mit <code>Zend\Form\Factory</code> konfigurieren</h3>
 <pre>
 &lt;?php
-namespace Pizza\Form;
+use Zend\Form\Factory;
 
-use Zend\Form\Element\Select;
-use Zend\Form\Element\Text;
-use Zend\Form\Fieldset;
+$factory = new Factory();
 
-class PizzaDataFieldset extends Fieldset
-{
-    public function __construct()
-    {
-        parent::__construct('pizza_data');
-        
-        $this->setLabel('Pizzadaten');
-        
-        $nameElement = new Text('pizza_name');
-        $nameElement->setLabel('Pizzaname');
-        
-        $priceElement = new Text('pizza_price');
-        $priceElement->setLabel('Preis');
-        
-        $categoryElement = new Select('pizza_category');
-        $categoryElement->setLabel('Kategorie');
-        $categoryElement->setValueOptions(array(
-            1 => 'Klassiker', 2 => 'Vegetarisch', 3 => 'Extravagant'
-        ));
-        
-        $this->add($nameElement);
-        $this->add($priceElement);
-        $this->add($categoryElement);
-    }
-}
+$form = $factory->createForm(array(
+    'elements' => array(
+        array(
+            'spec' => array(
+                'type'    => 'Zend\Form\Element\Text',
+                'name'    => 'pizza_name',
+                'options' => array('label' => 'Pizzaname'),
+            ),
+        ),
+        array(
+            'spec' => array(
+                'type'    => 'Zend\Form\Element\Text',
+                'name'    => 'pizza_price',
+                'options' => array('label' => 'Preis'),
+            ),
+        ),
+        array(
+            'spec' => array(
+                'type'    => 'Zend\Form\Element\Select',
+                'name'    => 'pizza_category',
+                'options' => array(
+                    'label' => 'Kategorie',
+                    'value_options' => array(
+                        1 => 'Klassiker', 2 => 'Vegetarisch', 
+                        3 => 'Extravagant'
+                    ),
+                ),
+            ),
+        ),
+        array(
+            'spec' => array(
+                'type'       => 'Zend\Form\Element\Submit',
+                'name'       => 'save_pizza',
+                'attributes' => array('value' => 'Pizza speichern'),
+            ),
+        ),
+    ),
+));
 </pre>
+<h3>Ausgabe</h3>
+<div class="well">
+<?php 
+use Zend\Form\Factory;
+
+$factory = new Factory();
+
+$form = $factory->createForm(array(
+    'elements' => array(
+        array(
+            'spec' => array(
+                'type'    => 'Zend\Form\Element\Text',
+                'name'    => 'pizza_name',
+                'options' => array('label' => 'Pizzaname'),
+            ),
+        ),
+        array(
+            'spec' => array(
+                'type'    => 'Zend\Form\Element\Text',
+                'name'    => 'pizza_price',
+                'options' => array('label' => 'Preis'),
+            ),
+        ),
+        array(
+            'spec' => array(
+                'type'    => 'Zend\Form\Element\Select',
+                'name'    => 'pizza_category',
+                'options' => array(
+                    'label' => 'Kategorie',
+                    'value_options' => array(
+                        1 => 'Klassiker', 2 => 'Vegetarisch', 
+                        3 => 'Extravagant'
+                    ),
+                ),
+            ),
+        ),
+        array(
+            'spec' => array(
+                'type'       => 'Zend\Form\Element\Submit',
+                'name'       => 'save_pizza',
+                'attributes' => array('value' => 'Pizza speichern'),
+            ),
+        ),
+    ),
+));
+
+$form->prepare();
+
+$this->headStyle()->appendStyle('label { width: 200px; }'); 
+?>
+<?php echo $this->form()->openTag($form); ?>
+<?php echo $this->formRow($form->get('pizza_name')); ?>
+<?php echo $this->formRow($form->get('pizza_price')); ?>
+<?php echo $this->formRow($form->get('pizza_category')); ?>
+<?php echo $this->formRow($form->get('save_pizza')); ?>
+<?php echo $this->form()->closeTag(); ?>
+</div>
 </div>
 </div>
